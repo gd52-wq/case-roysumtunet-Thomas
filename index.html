@@ -50,7 +50,7 @@
                 {
                     title: "Masterdata",
                     desc: `Vi ser på hvordan HR best kan opprette ${employeeName} direkte i Visma HRM for å trigge IKT-prosessen.`,
-                    automation: "Målet er at eksisterende verktøy (f.eks. M365) erstatter manuelle e-poster.",
+                    automation: "Målet er at eksisterende verktøy (f.eks. M365) erstatter manuelle prosesser.",
                     compliance: "Sikrer at data kun legges inn én gang. Færre feilkilder.",
                     icon: "🏢",
                     systems: "Visma HRM / M365 Forms",
@@ -60,7 +60,7 @@
                         desc: "I stedet for å kjøpe et nytt bestillingssystem, undersøker vi om vi kan bruke verktøy Røysumtunet allerede har (MS Forms/Power Automate) for å skape en strukturert bestillingsflyt fra leder til HR og IKT.",
                         nodes: [
                             { tool: "MS Forms / PowerApps", action: "Leder fyller ut behov", details: "Utnytter M365 for et standardisert skjema.", icon: "📝", color: "bg-teal-50 border-teal-200 text-teal-800" },
-                            { tool: "Power Automate", action: "Databehandling", details: "Ruting via eksisterende lisenser, uten merkostnad.", icon: "⚙️", color: "bg-blue-50 border-blue-200 text-blue-800" },
+                            { tool: "Power Automate", action: "Databehandling", details: "Behandles via eksisterende løsninger, uten merkostnad.", icon: "⚙️", color: "bg-blue-50 border-blue-200 text-blue-800" },
                             { tool: "HR & Visma", action: "Kvalitetssikring", details: "HR gjør siste sjekk før masterdata opprettes.", icon: "🗄️", color: "bg-indigo-50 border-indigo-200 text-indigo-800" }
                         ]
                     }
@@ -95,7 +95,7 @@
                         concept: "Videreutvikling av dagens IAM",
                         desc: "Røysumtunet har allerede Hybrid AD og Entra ID. Vi bygger videre på dette gode fundamentet. Ved å skrive PowerShell-scripts som leser Visma-eksporten, fjerner vi behovet for at IKT må punche brukernavn manuelt.",
                         nodes: [
-                            { tool: "Visma Eksport", action: "Datauttrekk (CSV)", details: "Sikker overføring av nye profiler nattlig/live.", icon: "📤", color: "bg-indigo-50 border-indigo-200 text-indigo-800" },
+                            { tool: "Visma Eksport", action: "Datauttrekk (CSV)", details: "Sikker overføring av nye profiler automatisk og periodisk.", icon: "📤", color: "bg-indigo-50 border-indigo-200 text-indigo-800" },
                             { tool: "PowerShell", action: "Lokal AD-opprettelse", details: "Skriptet bruker eksisterende OU-er og sikkerhetsgrupper.", icon: "💻", color: "bg-slate-100 border-slate-300 text-slate-800" },
                             { tool: "Entra ID Connect", action: "Dagens Skysynk", details: "Gjenbruk av eksisterende synkronisering til M365.", icon: "☁️", color: "bg-sky-50 border-sky-200 text-sky-800" }
                         ]
@@ -104,8 +104,8 @@
                 {
                     title: "Sikker Tilgang",
                     desc: `Riktig M365-lisens og Single Sign-On aktiveres for ${employeeName}.`,
-                    automation: "Lisenser deles ut via dynamiske grupper for å optimalisere kostnader.",
-                    compliance: "Sikker pålogging med MFA uansett hvor brukeren befinner seg.",
+                    automation: "Lisenser deles ut via sikkerhetsgrupper for å optimalisere kostnader.",
+                    compliance: "Sikker pålogging uansett hvor brukeren befinner seg.",
                     icon: "🛡️",
                     systems: "M365 / Entra ID SSO",
                     actionLabel: "Optimaliser Lisenser →",
