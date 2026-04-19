@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Røysumtunet - Strategisk Virksomhetsarkitektur</title>
+    <title>Røysumtunet - Helhetlig Digital Strategi</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
@@ -11,8 +11,11 @@
     <script src="https://unpkg.com/framer-motion@10.16.4/dist/framer-motion.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap');
-        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #0f172a; }
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #0f172a; scroll-behavior: smooth; }
         .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .thin-scrollbar::-webkit-scrollbar { width: 6px; }
+        .thin-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .thin-scrollbar::-webkit-scrollbar-thumb { background: #e2e8f0; border-radius: 10px; }
     </style>
 </head>
 <body>
@@ -24,141 +27,230 @@
 
         const OnboardingApp = () => {
             const [activeStep, setActiveStep] = useState(0);
-            const [viewMode, setViewMode] = useState("mapping"); // 'mapping', 'business', 'technical'
+            const [viewMode, setViewMode] = useState("mapping"); 
 
             const steps = [
                 {
-                    phase: "Fase A: Arkitekturvisjon",
-                    title: "Strategisk Forankring",
-                    icon: "🎯",
-                    gap: "IT har vært underprioritert i år. Sårbarhet: Manglende retning og teknisk gjeld.",
+                    phase: "Trinn 1: Ambisjon",
+                    title: "Felles mål og retning",
+                    icon: "🔭",
+                    focus: "Hvor vil vi og hvorfor?",
+                    gap: "Utydelig retning: IT har vært sett på som en utgift, ikke en mulighet.",
                     systems: "Overordnet styring",
                     mapping: {
-                        current: "Manuelle rutiner preger organisasjonen. Adm.dir og styret krever nå digitalt løft.",
-                        vulnerability: "Personavhengighet (Martin), fragmentert dokumentasjon, uoversiktlig lisensbruk.",
-                        leadership: "Etablere IKT-sjef som brobygger mellom styrets ambisjon og operasjonell drift.",
+                        current: "Digitale verktøy brukes i dag stykkevis og delt. Vi mangler en felles rød tråd.",
+                        vulnerability: "Vi er for sårbare for enkelthendelser. Når systemer stopper, stopper også flyten i omsorgen.",
+                        leadership: "Skape en felles forståelse hos ledelsen for hvordan digitale valg støtter våre felles mål.",
                         dialogue: [
-                            { role: "Adm.dir", text: "Vi har prioritert bort IT for lenge. Nå skal det bli vår motor for kvalitet." },
-                            { role: "IKT-Sjef", text: "Vi starter med å kartlegge gapet mellom dagens 'Excel-hverdag' og styrets målbilde." }
+                            { role: "Adm.dir", text: "Jeg trenger å vite at de pengene vi bruker på IKT faktisk gir oss en enklere hverdag." },
+                            { role: "IKT-Sjef", text: "Målet er at teknologien skal ligge usynlig i bunn og fjerne hindringer for de ansatte." }
                         ]
                     },
                     business: {
-                        desc: "Etablere en 'Digital Roadmap' for 2024-2025 forankret i styret.",
-                        automation: "Sikre økonomisk forutsigbarhet gjennom faste rammer og moderne lisensstyring."
+                        desc: "Sette tydelige mål for et digitalisert Røysumtunet frem mot 2026.",
+                        automation: "Gevinst: Sikrer at vi bruker pengene der de gir mest nytte for pasienter og ansatte."
                     },
                     tech: {
-                        concept: "Enterprise Architecture Vision",
+                        concept: "Strategisk fundament",
                         nodes: [
-                            { tool: "Strategi", action: "Styringsdokument", icon: "📑", color: "bg-blue-50 border-blue-200 text-blue-700" },
-                            { tool: "Gapanalyse", action: "Prioriteringsmatrise", icon: "📊", color: "bg-indigo-50 border-indigo-200 text-indigo-700" }
+                            { tool: "Målsetting", action: "Styreforankring", icon: "📑", color: "bg-blue-50 border-blue-200 text-blue-700" },
+                            { tool: "Gevinstplan", action: "Verdiskaping", icon: "💰", color: "bg-indigo-50 border-indigo-200 text-indigo-700" }
                         ]
                     }
                 },
                 {
-                    phase: "Fase B: Forretningsarkitektur",
-                    title: "Masterdata & HR",
-                    icon: "🏢",
-                    gap: "Ustrukturerte e-poster ved ansettelse. Sårbarhet: Feil i lønn, tilgang og personvern (GDPR).",
-                    systems: "Visma HRM / Entra ID",
+                    phase: "Trinn 2: Prosesser",
+                    title: "Arbeidshverdag og flyt",
+                    icon: "💼",
+                    focus: "Forenkling av rutiner",
+                    gap: "Manuelle hindringer: Oppgaver 'faller mellom to stoler' i e-post og Excel.",
+                    systems: "Daglig drift",
                     mapping: {
-                        current: "Data 'punching' skjer manuelt i flere ledd. Informasjon forsvinner i e-postkjeder.",
-                        vulnerability: "Ingen 'Single Source of Truth'. Tidkrevende rutiner rundt dokumentering.",
-                        leadership: "Involvere HR og avdelingsledere i design av automatisert flyt.",
+                        current: "Ansettelser og avvikshåndtering krever for mange manuelle steg og sjekklister.",
+                        vulnerability: "Viktig informasjon blir liggende i innbokser. Vi mister verdifull tid på administrasjon.",
+                        leadership: "Rydde i rutinene våre sammen med de som gjør jobben, før vi innfører nye systemer.",
                         dialogue: [
-                            { role: "HR-Leder", text: "Vi bruker for mye tid på å jage informasjon om nye ansatte." },
-                            { role: "IKT-Sjef", text: "Vi flytter ansvaret for data-kvalitet til kilden (Visma) og automatiserer resten." }
+                            { role: "HR-leder", text: "Jeg vil at rutinene skal være så enkle at alle følger dem uten å tenke seg om." },
+                            { role: "IKT-Sjef", text: "Vi skal bygge digitale rørgater som automatisk dytter informasjonen dit den skal." }
                         ]
                     },
                     business: {
-                        desc: "HR registrerer én gang i Visma. Alle systemer oppdateres automatisk.",
-                        automation: "Fjerner manuelle avhengigheter og sikrer 100% datakvalitet."
+                        desc: "Designe fremtidens flyt for onboarding og kvalitetsoppfølging.",
+                        automation: "Gevinst: Ansatte bruker mer tid på omsorg og mindre tid på punching av data."
                     },
                     tech: {
-                        concept: "Business Process Automation",
+                        concept: "Prosess-støtte",
                         nodes: [
-                            { tool: "Visma HRM", action: "Source of Truth", icon: "💎", color: "bg-emerald-50 border-emerald-200 text-emerald-700" },
-                            { tool: "Power Automate", action: "Data-broker", icon: "⚙️", color: "bg-sky-50 border-sky-200 text-sky-700" }
+                            { tool: "Brukerreise", action: "Forenhlet hverdag", icon: "🗺️", color: "bg-emerald-50 border-emerald-200 text-emerald-700" },
+                            { tool: "Rollehåndtering", action: "Klar ansvarsfordeling", icon: "👥", color: "bg-sky-50 border-sky-200 text-sky-700" }
                         ]
                     }
                 },
                 {
-                    phase: "Fase C: Informasjonssystemer",
-                    title: "Identitet & Tilgang",
-                    icon: "🔑",
-                    gap: "Manuell opprettelse av kontoer. Sårbarhet: Tilganger som aldri slettes (leaver-risiko).",
-                    systems: "Microsoft Entra ID / RBAC",
-                    mapping: {
-                        current: "Martin (IKT) må huske hvem som skal ha hva. Ingen systematisk revisjon.",
-                        vulnerability: "Uautorisert tilgang til sensitive helseopplysninger over tid.",
-                        leadership: "Implementere Rollebasert Tilgangsstyring (RBAC) som standard rutine.",
-                        dialogue: [
-                            { role: "Martin", text: "Jeg gjør mitt beste, men det er lett å glemme en lisens eller en tilgang." },
-                            { role: "IKT-Sjef", text: "Vi fjerner 'huske-faktoren'. Systemet gir tilgang basert på rollen i Visma." }
-                        ]
-                    },
-                    business: {
-                        desc: "Automatisert On/Offboarding sikrer compliance og sparer lisenskostnader.",
-                        automation: "Økonomisk styring: Vi betaler kun for aktive lisenser vi faktisk bruker."
-                    },
-                    tech: {
-                        concept: "Identity & Access Management",
-                        nodes: [
-                            { tool: "Entra ID", action: "Auto-provisjonering", icon: "☁️", color: "bg-slate-50 border-slate-200 text-slate-700" },
-                            { tool: "Conditional Access", action: "Zero Trust", icon: "🛡️", color: "bg-red-50 border-red-200 text-red-700" }
-                        ]
-                    }
-                },
-                {
-                    phase: "Fase D: Teknologiarkitektur",
-                    title: "Moderne Klientdrift",
-                    icon: "💻",
-                    gap: "Manuelt oppsett av hver PC. Sårbarhet: Varierende sikkerhetsoppsett på enheter.",
-                    systems: "Intune / Autopilot",
-                    mapping: {
-                        current: "IKT-tekniker bruker timer per enhet. Ingen sentral oversikt over maskinparken.",
-                        vulnerability: "Gamle enheter uten sikkerhetsoppdateringer. Risiko for datainnbrudd.",
-                        leadership: "Modernisering: Gå fra 'brannslukking' til standardisert livssyklusstyring.",
-                        dialogue: [
-                            { role: "Avd.leder", text: "Det tar uker før en ny ansatt får PC-en sin i dag." },
-                            { role: "IKT-Sjef", text: "Med 'Zero-Touch' sendes PC direkte til avdelingen. Den setter seg opp selv." }
-                        ]
-                    },
-                    business: {
-                        desc: "Enheter er alltid oppdaterte og krypterte. Full oversikt over verdiene.",
-                        automation: "Effektivisering: Martin kan fokusere på brukerstøtte og utvikling."
-                    },
-                    tech: {
-                        concept: "Endpoint Management",
-                        nodes: [
-                            { tool: "Autopilot", action: "Hardware Provisioning", icon: "🌐", color: "bg-blue-50 border-blue-200 text-blue-700" },
-                            { tool: "Intune", action: "Compliance Policies", icon: "🛡️", color: "bg-purple-50 border-purple-200 text-purple-700" }
-                        ]
-                    }
-                },
-                {
-                    phase: "Fase G: Implementeringsstyring",
-                    title: "Compliance & Revisjon",
+                    phase: "Trinn 3: Samspill",
+                    title: "Informasjon som flyter",
                     icon: "📊",
-                    gap: "Papirbasert kontroll. Sårbarhet: Vanskelig å dokumentere etterlevelse ved tilsyn.",
-                    systems: "Power BI / Purview",
+                    focus: "Systemer som snakker sammen",
+                    gap: "Isolerte systemer: Informasjon må skrives inn flere ganger.",
+                    systems: "Digital samhandling",
                     mapping: {
-                        current: "Revisjon skjer 'skvettvis' ved behov. Ingen kontinuerlig overvåking.",
-                        vulnerability: "Manglende dokumentasjon kan føre til sanksjoner fra Helsetilsynet.",
-                        leadership: "Gjøre compliance til en del av den daglige driften, ikke et skippertak.",
+                        current: "Når noen ansettes i Visma, må IT manuelt opprette dem i alle andre systemer.",
+                        vulnerability: "Fare for feil i sensitive data og manglende oversikt over tilganger.",
+                        leadership: "Sørge for at informasjonen vår lever ett sted og deles trygt med alle ledd.",
                         dialogue: [
-                            { role: "Adm.dir", text: "Kan vi bevise at vi følger alle krav i dag?" },
-                            { role: "IKT-Sjef", text: "Snart kan vi det. Vi bygger dashboards som viser status i sanntid." }
+                            { role: "Avd.leder", text: "Hvorfor kan ikke systemene bare vite hvem den nye ansatte er?" },
+                            { role: "IKT-Sjef", text: "Det er nettopp det vi løser nå. Visma blir 'hjertet' som sender info til resten." }
                         ]
                     },
                     business: {
-                        desc: "Ledelsen har sanntids innsyn i risiko og etterlevelse.",
-                        automation: "Rutiner rundt dokumentering blir automatiske biprodukter av prosessene."
+                        desc: "Koble sammen personalsystem, fagsystem og IT-verktøy.",
+                        automation: "Gevinst: Fjerner 80% av de manuelle stegene ved nyansettelse."
                     },
                     tech: {
-                        concept: "Continuous Compliance",
+                        concept: "Integrert hverdag",
                         nodes: [
-                            { tool: "Graph API", action: "Log-aggregat", icon: "🔍", color: "bg-slate-50 border-slate-200 text-slate-700" },
-                            { tool: "Power BI", action: "Executive Report", icon: "📊", color: "bg-yellow-50 border-yellow-200 text-yellow-700" }
+                            { tool: "Hovedkilde", action: "Kvalitetsdata", icon: "💎", color: "bg-slate-50 border-slate-200 text-slate-700" },
+                            { tool: "Automatisering", action: "Sømløs flyt", icon: "⚡", color: "bg-purple-50 border-purple-200 text-purple-700" }
+                        ]
+                    }
+                },
+                {
+                    phase: "Trinn 4: Grunnmur",
+                    title: "Sikker og stabil drift",
+                    icon: "🖥️",
+                    focus: "Teknisk fundament",
+                    gap: "Utdatert utstyr: Lokale servere som krever mye manuelt tilsyn.",
+                    systems: "IKT-fundament",
+                    mapping: {
+                        current: "Martin bruker i dag for mye tid på å holde liv i gammelt utstyr.",
+                        vulnerability: "Vi er sårbare for tekniske feil som kan lamme driften i kritiske perioder.",
+                        leadership: "Bygge et moderne og sikkert fundament som tåler fremtidens krav.",
+                        dialogue: [
+                            { role: "Martin", text: "Jeg vil gjerne hjelpe brukerne mer, men må ofte bruke tid på serverrommet." },
+                            { role: "IKT-Sjef", text: "Vi flytter rutinene til moderne sky-løsninger, så du kan støtte folk i stedet for maskiner." }
+                        ]
+                    },
+                    business: {
+                        desc: "Modernisere alt teknisk utstyr og flytte tjenester til en sikker plattform.",
+                        automation: "Gevinst: En stabil hverdag uten uventede avbrudd i arbeidet."
+                    },
+                    tech: {
+                        concept: "Sikker infrastruktur",
+                        nodes: [
+                            { tool: "Sky-tjenester", action: "Alltid tilgjengelig", icon: "🌩️", color: "bg-sky-50 border-sky-200 text-sky-700" },
+                            { tool: "Enhetsstyring", action: "Sikker utrustning", icon: "🛡️", color: "bg-indigo-50 border-indigo-200 text-indigo-700" }
+                        ]
+                    }
+                },
+                {
+                    phase: "Trinn 5: Muligheter",
+                    title: "Smarte valg for fremtiden",
+                    icon: "💡",
+                    focus: "Riktige verktøy til jobben",
+                    gap: "Mange verktøy: Litt uklart hvilke systemer vi egentlig trenger.",
+                    systems: "Løsningsvalg",
+                    mapping: {
+                        current: "Vi har i dag mange systemer som delvis overlapper hverandre.",
+                        vulnerability: "Vi betaler for mer enn vi trenger, og opplæring blir unødvendig vanskelig.",
+                        leadership: "Velge de verktøyene som er enklest å bruke og som gir mest verdi for pengene.",
+                        dialogue: [
+                            { role: "Adm.dir", text: "Kan vi forenkle systemparken vår og spare både tid og penger?" },
+                            { role: "IKT-Sjef", text: "Ja, ved å standardisere på løsninger som fungerer godt sammen." }
+                        ]
+                    },
+                    business: {
+                        desc: "Velge ut de beste verktøyene for Røysumtunets spesifikke behov.",
+                        automation: "Gevinst: Enklere opplæring for ansatte og bedre oversikt for ledelsen."
+                    },
+                    tech: {
+                        concept: "Standardisering",
+                        nodes: [
+                            { tool: "Felles plattform", action: "Gjenbruk", icon: "🏗️", color: "bg-yellow-50 border-yellow-200 text-yellow-700" },
+                            { tool: "Verktøykasse", action: "Forenkling", icon: "📂", color: "bg-emerald-50 border-emerald-200 text-emerald-700" }
+                        ]
+                    }
+                },
+                {
+                    phase: "Trinn 6: Veikart",
+                    title: "Plan og investering",
+                    icon: "🗓️",
+                    focus: "Veien videre",
+                    gap: "Uforutsigbarhet: Vanskelig å planlegge IKT-kostnader over tid.",
+                    systems: "Økonomisk styring",
+                    mapping: {
+                        current: "IKT-kostnader har ofte kommet som overraskelser på budsjettet.",
+                        vulnerability: "Viktige oppgraderinger blir utsatt fordi vi mangler en langsiktig plan.",
+                        leadership: "Lage en tydelig plan som viser hva vi skal gjøre når, og hva det vil koste.",
+                        dialogue: [
+                            { role: "Adm.dir", text: "Jeg vil vite hva planen er for de neste tre årene." },
+                            { role: "IKT-Sjef", text: "Her er veikartet. Det gir oss forutsigbarhet for både drift og budsjett." }
+                        ]
+                    },
+                    business: {
+                        desc: "Lage en investeringsplan som sikrer kontrollert og trygg gjennomføring.",
+                        automation: "Gevinst: Full kontroll på økonomien og ingen 'bråstopp' i prosjekter."
+                    },
+                    tech: {
+                        concept: "Langsiktig planlegging",
+                        nodes: [
+                            { tool: "Veikart 2026-27", action: "Prioritert rekkefølge", icon: "📅", color: "bg-blue-50 border-blue-200 text-blue-700" },
+                            { tool: "Budsjettkontroll", action: "Forutsigbarhet", icon: "💰", color: "bg-slate-50 border-slate-200 text-slate-700" }
+                        ]
+                    }
+                },
+                {
+                    phase: "Trinn 7: Kvalitet",
+                    title: "Kontroll og trygghet",
+                    icon: "🏗️",
+                    focus: "Gjennomføringskraft",
+                    gap: "Varierende kontroll: Vanskelig å vite om alt følger rutinene.",
+                    systems: "Etterlevelse",
+                    mapping: {
+                        current: "Vi stoler i dag på at ting blir gjort riktig, men mangler god dokumentasjon.",
+                        vulnerability: "Ved tilsyn må vi bruke dager på å finne bevis for at vi følger lovverket.",
+                        leadership: "Sikre at alle nye løsninger er bygd for å vare og er enkle å kontrollere.",
+                        dialogue: [
+                            { role: "Kvalitetsleder", text: "Kan du garantere at vi følger kravene i helselovgivningen?" },
+                            { role: "IKT-Sjef", text: "Ja, fordi kontrollen nå er bygd direkte inn i de digitale rutinene våre." }
+                        ]
+                    },
+                    business: {
+                        desc: "Sikre at alle digitale endringer følger Røysumtunets høye kvalitetskrav.",
+                        automation: "Gevinst: Automatisk dokumentasjon til tilsyn og internkontroll."
+                    },
+                    tech: {
+                        concept: "Kvalitetssikring",
+                        nodes: [
+                            { tool: "Sikkerhetssjekk", action: "Trygge løsninger", icon: "⚖️", color: "bg-red-50 border-red-200 text-red-700" },
+                            { tool: "Beslutningsstøtte", action: "Riktige valg", icon: "📝", color: "bg-slate-50 border-slate-200 text-slate-700" }
+                        ]
+                    }
+                },
+                {
+                    phase: "Trinn 8: Utvikling",
+                    title: "Læring og forbedring",
+                    icon: "🔄",
+                    focus: "Alltid oppdatert",
+                    gap: "Stagnasjon: Vi glemmer å justere oss etter hvert som verden endres.",
+                    systems: "Kontinuerlig vekst",
+                    mapping: {
+                        current: "IT blir ofte stående stille etter at et prosjekt er ferdig.",
+                        vulnerability: "Vi går glipp av nye muligheter som kunne gjort hverdagen enda enklere.",
+                        leadership: "Bygge en kultur der vi hele tiden ser etter små og store forbedringer.",
+                        dialogue: [
+                            { role: "Adm.dir", text: "Hvordan holder vi oss i front uten å måtte ta store skippertak hvert femte år?" },
+                            { role: "IKT-Sjef", text: "Ved å gjøre små justeringer hele tiden, basert på erfaringene fra de ansatte." }
+                        ]
+                    },
+                    business: {
+                        desc: "Sørge for at vi alltid lærer av våre digitale erfaringer.",
+                        automation: "Gevinst: Et Røysumtunet som alltid er rigget for morgendagens behov."
+                    },
+                    tech: {
+                        concept: "Kontinuerlig læring",
+                        nodes: [
+                            { tool: "Brukerinnspill", action: "Bedre verktøy", icon: "📡", color: "bg-indigo-50 border-indigo-200 text-indigo-700" },
+                            { tool: "Forbedringssløyfe", action: "Varig verdi", icon: "🔁", color: "bg-sky-50 border-sky-200 text-sky-700" }
                         ]
                     }
                 }
@@ -171,26 +263,26 @@
                     <header className="flex flex-col lg:flex-row lg:justify-between lg:items-end mb-10 gap-4 border-b pb-8">
                         <div>
                             <div className="flex items-center gap-4 mb-3">
-                                <div className="bg-slate-900 text-white p-3 rounded-2xl font-black text-2xl shadow-xl">ADM</div>
+                                <div className="bg-blue-600 text-white p-3 rounded-2xl font-black text-2xl shadow-xl tracking-tighter italic">STRATEGI</div>
                                 <div>
                                     <h1 className="text-3xl font-black tracking-tight text-slate-900 uppercase">
-                                        Røysumtunet <span className="text-blue-600">Arkitektur</span>
+                                        Røysumtunet <span className="text-blue-600">Digital</span>
                                     </h1>
-                                    <p className="text-slate-500 font-bold text-xs uppercase tracking-[0.25em]">Strategisk Gapanalyse & Virksomhetsstyring</p>
+                                    <p className="text-slate-500 font-bold text-xs uppercase tracking-[0.25em]">Vår felles plan for trygghet og effektivitet</p>
                                 </div>
                             </div>
                         </div>
                         
-                        <div className="flex bg-slate-100 p-2 rounded-2xl shadow-inner gap-1 border border-slate-200">
+                        <div className="flex bg-slate-100 p-2 rounded-2xl shadow-inner gap-1 border border-slate-200 overflow-x-auto hide-scrollbar max-w-full">
                             {[
-                                { id: 'mapping', label: '1. Gap & Sårbarhet', icon: '🔍' },
-                                { id: 'business', label: '2. Målbilde & Verdi', icon: '💡' },
-                                { id: 'technical', label: '3. Teknisk Arkitektur', icon: '⚙️' }
+                                { id: 'mapping', label: '1. Utfordring & Gap', icon: '🔍' },
+                                { id: 'business', label: '2. Verdi for oss', icon: '💡' },
+                                { id: 'technical', label: '3. Hvordan vi gjør det', icon: '⚙️' }
                             ].map(mode => (
                                 <button 
                                     key={mode.id}
                                     onClick={() => setViewMode(mode.id)}
-                                    className={`px-6 py-3 rounded-xl text-[11px] font-black uppercase tracking-widest transition-all flex items-center gap-2 ${viewMode === mode.id ? 'bg-white text-blue-600 shadow-sm border border-slate-200' : 'text-slate-400 hover:text-slate-600'}`}
+                                    className={`px-6 py-3 rounded-xl text-[11px] font-black uppercase tracking-widest transition-all flex items-center gap-2 whitespace-nowrap ${viewMode === mode.id ? 'bg-white text-blue-600 shadow-sm border border-slate-200' : 'text-slate-400 hover:text-slate-600'}`}
                                 >
                                     <span>{mode.icon}</span> {mode.label}
                                 </button>
@@ -200,12 +292,12 @@
 
                     <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 flex-1">
                         
-                        {/* ADM Prosesslinje Venstre */}
-                        <div className="lg:col-span-8 space-y-8">
+                        {/* Prosesslinje Venstre */}
+                        <div className="lg:col-span-8 space-y-8 flex flex-col">
                             
-                            {/* ADM Fasevelger */}
-                            <div className="bg-white rounded-3xl p-8 shadow-sm border border-slate-200 overflow-x-auto hide-scrollbar">
-                                <div className="min-w-[800px] relative flex justify-between items-center px-4">
+                            {/* Stegvelger */}
+                            <div className="bg-white rounded-3xl p-8 shadow-sm border border-slate-200 overflow-x-auto thin-scrollbar">
+                                <div className="min-w-[900px] relative flex justify-between items-center px-4 py-4">
                                     <div className="absolute top-1/2 left-12 right-12 h-1 bg-slate-100 -translate-y-1/2 rounded-full"></div>
                                     <motion.div 
                                         className="absolute top-1/2 left-12 h-1 bg-blue-600 -translate-y-1/2 rounded-full"
@@ -215,69 +307,68 @@
                                         <button 
                                             key={i} 
                                             onClick={() => {setActiveStep(i); setViewMode('mapping');}}
-                                            className={`relative z-10 w-16 h-16 rounded-[1.5rem] border-2 transition-all flex flex-col items-center justify-center ${i <= activeStep ? 'bg-slate-900 border-slate-700 text-white shadow-xl' : 'bg-white border-slate-200 text-slate-300'}`}
+                                            className={`relative z-10 w-16 h-16 rounded-2xl border-2 transition-all flex flex-col items-center justify-center ${i <= activeStep ? 'bg-slate-900 border-slate-700 text-white shadow-xl scale-110' : 'bg-white border-slate-200 text-slate-300 hover:border-slate-400'}`}
                                         >
-                                            <span className="text-2xl">{s.icon}</span>
-                                            <span className={`absolute -bottom-10 left-1/2 -translate-x-1/2 text-[9px] font-black uppercase whitespace-nowrap tracking-widest ${i === activeStep ? 'text-slate-900' : 'text-slate-400'}`}>
-                                                {s.phase.split(':')[0]}
+                                            <span className="text-xl mb-1">{s.icon}</span>
+                                            <span className={`absolute -bottom-8 left-1/2 -translate-x-1/2 text-[10px] font-black uppercase whitespace-nowrap tracking-tighter ${i === activeStep ? 'text-slate-900' : 'text-slate-400'}`}>
+                                                {s.phase.split(' ')[1]}
                                             </span>
                                         </button>
                                     ))}
                                 </div>
-                                <div className="h-8"></div>
                             </div>
 
                             <AnimatePresence mode="wait">
                                 {viewMode === 'mapping' && (
                                     <motion.div 
                                         key="mapping" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }}
-                                        className="bg-white rounded-[3rem] p-12 shadow-sm border border-slate-200 flex-1"
+                                        className="bg-white rounded-[3rem] p-12 shadow-sm border border-slate-200 flex-1 flex flex-col"
                                     >
                                         <div className="flex justify-between items-start mb-10 border-b pb-8">
                                             <div>
-                                                <span className="text-blue-600 font-black text-xs uppercase tracking-[0.3em] mb-3 block">{steps[activeStep].phase}</span>
+                                                <span className="text-blue-600 font-black text-xs uppercase tracking-[0.3em] mb-3 block">{steps[activeStep].phase} | {steps[activeStep].focus}</span>
                                                 <h2 className="text-4xl font-black text-slate-900 tracking-tight">{steps[activeStep].title}</h2>
                                             </div>
                                             <div className="text-right">
-                                                <div className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1 italic">Strategisk Gap</div>
+                                                <div className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1 italic">Vår utfordring</div>
                                                 <div className="text-sm font-bold text-red-500 max-w-xs">{steps[activeStep].gap}</div>
                                             </div>
                                         </div>
 
-                                        <div className="grid md:grid-cols-2 gap-12">
+                                        <div className="grid md:grid-cols-2 gap-12 flex-1">
                                             <div className="space-y-10">
                                                 <section>
                                                     <h3 className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-4 flex items-center gap-2">
-                                                        <span className="w-4 h-0.5 bg-red-400"></span> Kartlegging: Sårbarhet (As-Is)
+                                                        <span className="w-4 h-0.5 bg-red-400"></span> Nå-situasjon og sårbarhet
                                                     </h3>
-                                                    <div className="bg-red-50/50 p-6 rounded-3xl border border-red-100">
-                                                        <p className="text-slate-700 font-bold leading-relaxed mb-4">{steps[activeStep].mapping.current}</p>
-                                                        <div className="text-xs text-red-700 font-medium p-3 bg-white rounded-xl border border-red-100 shadow-sm">
-                                                            ⚠️ {steps[activeStep].mapping.vulnerability}
+                                                    <div className="bg-red-50/40 p-6 rounded-3xl border border-red-100">
+                                                        <p className="text-slate-700 font-bold leading-relaxed mb-4 text-sm">{steps[activeStep].mapping.current}</p>
+                                                        <div className="text-[11px] text-red-700 font-bold p-4 bg-white rounded-2xl border border-red-100 shadow-sm flex items-start gap-3">
+                                                            <span className="text-xl">⚠️</span> {steps[activeStep].mapping.vulnerability}
                                                         </div>
                                                     </div>
                                                 </section>
                                                 
                                                 <section>
                                                     <h3 className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-4 flex items-center gap-2">
-                                                        <span className="w-4 h-0.5 bg-blue-400"></span> Lederskap & Forankring
+                                                        <span className="w-4 h-0.5 bg-blue-400"></span> Mitt ansvar som leder
                                                     </h3>
-                                                    <div className="bg-blue-50/30 p-6 rounded-3xl border border-blue-100">
-                                                        <p className="text-blue-900 font-bold leading-relaxed">{steps[activeStep].mapping.leadership}</p>
+                                                    <div className="bg-blue-50/20 p-6 rounded-3xl border border-blue-100">
+                                                        <p className="text-blue-900 font-bold leading-relaxed text-sm italic">"{steps[activeStep].mapping.leadership}"</p>
                                                     </div>
                                                 </section>
                                             </div>
                                             
                                             <div className="space-y-8">
-                                                <div className="bg-slate-50 p-8 rounded-[2.5rem] border border-slate-100">
-                                                    <h3 className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-6">Dialog med interessenter</h3>
+                                                <div className="bg-slate-50 p-8 rounded-[2.5rem] border border-slate-100 shadow-inner flex-1 overflow-y-auto thin-scrollbar max-h-[350px]">
+                                                    <h3 className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-6">Dialog med nøkkelroller</h3>
                                                     <div className="space-y-6">
                                                         {steps[activeStep].mapping.dialogue.map((msg, mi) => (
                                                             <div key={mi} className={`flex flex-col ${msg.role === 'IKT-Sjef' ? 'items-start' : 'items-end'}`}>
-                                                                <div className={`px-5 py-4 rounded-2xl text-xs font-semibold max-w-[90%] shadow-sm ${msg.role === 'IKT-Sjef' ? 'bg-slate-900 text-white rounded-tl-none' : 'bg-white text-slate-700 rounded-tr-none border border-slate-200'}`}>
+                                                                <div className={`px-5 py-4 rounded-2xl text-[11px] font-semibold max-w-[90%] shadow-sm ${msg.role === 'IKT-Sjef' ? 'bg-slate-900 text-white rounded-tl-none' : 'bg-white text-slate-700 rounded-tr-none border border-slate-200'}`}>
                                                                     {msg.text}
                                                                 </div>
-                                                                <span className="text-[8px] font-black text-slate-400 uppercase mt-2 px-2">{msg.role}</span>
+                                                                <span className="text-[8px] font-black text-slate-400 uppercase mt-2 px-2 tracking-tighter">{msg.role}</span>
                                                             </div>
                                                         ))}
                                                     </div>
@@ -287,7 +378,7 @@
                                                     onClick={() => setViewMode('business')} 
                                                     className="w-full bg-blue-600 text-white py-6 rounded-2xl font-black text-xs uppercase tracking-[0.2em] hover:bg-slate-900 shadow-xl transition-all"
                                                 >
-                                                    Se Foreslått Endring →
+                                                    Vår plan for forbedring →
                                                 </button>
                                             </div>
                                         </div>
@@ -301,16 +392,16 @@
                                     >
                                         <div className="mb-10 flex justify-between items-center">
                                             <div>
-                                                <span className="bg-emerald-100 text-emerald-700 px-4 py-1 rounded-full text-[10px] font-black uppercase tracking-widest">Målbilde & Brukerverdi</span>
-                                                <h2 className="text-4xl font-black text-slate-900 mt-4 tracking-tight">Effektivisering av {steps[activeStep].title}</h2>
+                                                <span className="bg-emerald-100 text-emerald-700 px-4 py-1 rounded-full text-[10px] font-black uppercase tracking-widest">Hva vi oppnår (Vårt målbilde)</span>
+                                                <h2 className="text-4xl font-black text-slate-900 mt-4 tracking-tight">Verdiskaping: {steps[activeStep].title}</h2>
                                             </div>
-                                            <div className="text-4xl">{steps[activeStep].icon}</div>
+                                            <div className="text-5xl">{steps[activeStep].icon}</div>
                                         </div>
                                         
                                         <div className="grid md:grid-cols-2 gap-12 flex-1 items-center">
                                             <div className="space-y-10">
                                                 <div className="border-l-8 border-emerald-500 pl-8">
-                                                    <h4 className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">Moderniseringstiltak</h4>
+                                                    <h4 className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">Hva vi skal gjøre</h4>
                                                     <p className="text-2xl text-slate-800 font-semibold leading-snug">
                                                         "{steps[activeStep].business.desc}"
                                                     </p>
@@ -318,25 +409,25 @@
                                                 <div className="bg-emerald-50 p-8 rounded-3xl font-black text-sm text-emerald-800 flex items-start gap-4 border border-emerald-100">
                                                     <span className="text-3xl">🚀</span>
                                                     <div>
-                                                        <div className="uppercase text-[9px] tracking-widest opacity-60 mb-2 text-emerald-600">Økonomisk & Operasjonell Verdi</div>
+                                                        <div className="uppercase text-[9px] tracking-widest opacity-60 mb-2 text-emerald-600">Gevinst for Røysumtunet</div>
                                                         {steps[activeStep].business.automation}
                                                     </div>
                                                 </div>
                                             </div>
                                             <div className="bg-slate-50 rounded-[3rem] aspect-square flex flex-col items-center justify-center text-8xl shadow-inner relative group border border-slate-200">
-                                                <div className="absolute top-8 right-10 text-[9px] font-black text-slate-300 uppercase tracking-[0.3em]">Systemkart: {steps[activeStep].systems}</div>
+                                                <div className="absolute top-8 right-10 text-[9px] font-black text-slate-300 uppercase tracking-[0.3em]">{steps[activeStep].systems}</div>
                                                 <motion.div animate={{ scale: [1, 1.05, 1] }} transition={{ repeat: Infinity, duration: 4 }}>
                                                     {steps[activeStep].icon}
                                                 </motion.div>
                                             </div>
                                         </div>
                                         <div className="mt-12 flex gap-4">
-                                            <button onClick={() => setViewMode('mapping')} className="px-8 py-5 rounded-2xl font-black text-xs uppercase text-slate-400 hover:text-slate-600 transition-all tracking-widest">← Gå tilbake til Gap-analyse</button>
+                                            <button onClick={() => setViewMode('mapping')} className="px-8 py-5 rounded-2xl font-black text-xs uppercase text-slate-400 hover:text-slate-600 transition-all tracking-widest">← Tilbake til utfordringen</button>
                                             <button 
                                                 onClick={() => setViewMode('technical')} 
                                                 className="flex-1 bg-slate-900 text-white py-5 rounded-2xl font-black text-xs uppercase tracking-[0.2em] hover:bg-blue-600 shadow-xl transition-all"
                                             >
-                                                Se Teknisk Realisering →
+                                                Se veien til målet →
                                             </button>
                                         </div>
                                     </motion.div>
@@ -350,10 +441,10 @@
                                         <div className="absolute inset-0 opacity-10 pointer-events-none" style={{ backgroundImage: 'radial-gradient(#fff 0.5px, transparent 0.5px)', backgroundSize: '40px 40px' }}></div>
                                         <div className="mb-14 relative z-10 flex justify-between items-end">
                                             <div>
-                                                <span className="bg-blue-600 text-white px-4 py-1 rounded-full text-[10px] font-black uppercase tracking-widest">Infrastruktur & Implementasjon</span>
+                                                <span className="bg-blue-600 text-white px-4 py-1 rounded-full text-[10px] font-black uppercase tracking-widest">Praktisk gjennomføring</span>
                                                 <h2 className="text-4xl font-black text-white mt-4 tracking-tight">{steps[activeStep].tech.concept}</h2>
                                             </div>
-                                            <div className="text-[10px] font-black text-blue-400 uppercase tracking-widest">ADM FASE C/D</div>
+                                            <div className="text-[10px] font-black text-blue-400 uppercase tracking-widest italic">{steps[activeStep].phase}</div>
                                         </div>
 
                                         <div className="flex-1 flex flex-col md:flex-row items-center justify-center gap-12 relative z-10">
@@ -373,7 +464,7 @@
                                         </div>
 
                                         <div className="mt-14 flex justify-between items-center relative z-10 border-t border-slate-800 pt-10">
-                                            <button onClick={() => setViewMode('business')} className="text-slate-500 font-black text-xs uppercase hover:text-white transition-all tracking-widest">← Tilbake til Verdi</button>
+                                            <button onClick={() => setViewMode('business')} className="text-slate-500 font-black text-xs uppercase hover:text-white transition-all tracking-widest">← Tilbake til gevinst</button>
                                             <button 
                                                 onClick={() => {
                                                     if (activeStep < steps.length - 1) {
@@ -383,7 +474,7 @@
                                                 }}
                                                 className="bg-white text-slate-900 px-12 py-5 rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-blue-600 hover:text-white transition-all shadow-xl"
                                             >
-                                                Neste ADM-fase →
+                                                Gå til neste steg →
                                             </button>
                                         </div>
                                     </motion.div>
@@ -394,33 +485,33 @@
                         {/* Strategisk Sidebar */}
                         <div className="lg:col-span-4 flex flex-col gap-8">
                             
-                            {/* ADM Dashboard */}
-                            <div className="bg-white rounded-[2.5rem] p-10 shadow-sm border border-slate-200 flex-1 flex flex-col">
+                            {/* Prosessoversikt */}
+                            <div className="bg-white rounded-[2.5rem] p-10 shadow-sm border border-slate-200 flex flex-col h-full max-h-[600px]">
                                 <h3 className="text-[10px] font-black text-slate-800 uppercase tracking-[0.3em] mb-10 flex justify-between items-center border-b pb-6">
-                                    Digital Modenhet (ADM)
+                                    Vår transformasjon
                                     <span className="flex h-3 w-3 relative">
                                         <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
                                         <span className="relative inline-flex rounded-full h-3 w-3 bg-blue-600"></span>
                                     </span>
                                 </h3>
                                 
-                                <div className="space-y-8 flex-1">
+                                <div className="space-y-4 flex-1 overflow-y-auto thin-scrollbar pr-2">
                                     {steps.map((s, i) => (
-                                        <div key={i} className={`flex items-start gap-4 transition-all ${i === activeStep ? 'opacity-100' : 'opacity-40 grayscale'}`}>
-                                            <div className={`w-8 h-8 rounded-lg flex items-center justify-center font-black text-[10px] ${i === activeStep ? 'bg-blue-600 text-white' : 'bg-slate-100 text-slate-400'}`}>
-                                                {s.phase.split(':')[0].slice(-1)}
+                                        <div key={i} className={`flex items-start gap-4 transition-all duration-300 ${i === activeStep ? 'opacity-100' : 'opacity-25 grayscale'}`}>
+                                            <div className={`w-10 h-10 rounded-xl flex items-center justify-center font-black text-xs shadow-sm flex-shrink-0 ${i === activeStep ? 'bg-blue-600 text-white' : 'bg-slate-100 text-slate-400'}`}>
+                                                {i + 1}
                                             </div>
-                                            <div>
-                                                <div className="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-1">{s.phase}</div>
-                                                <div className="text-xs font-bold text-slate-700">{s.title}</div>
+                                            <div className="min-w-0">
+                                                <div className="text-[9px] font-black text-slate-400 uppercase tracking-widest truncate">{s.phase}</div>
+                                                <div className="text-xs font-bold text-slate-700 truncate">{s.title}</div>
                                             </div>
                                         </div>
                                     ))}
                                 </div>
 
-                                <div className="mt-10 pt-10 border-t">
+                                <div className="mt-8 pt-8 border-t">
                                     <div className="flex justify-between items-center mb-3">
-                                        <div className="text-[10px] font-black text-slate-400 uppercase tracking-widest italic">Implementeringsgrad</div>
+                                        <div className="text-[10px] font-black text-slate-400 uppercase tracking-widest italic">Hvor langt har vi kommet?</div>
                                         <div className="text-xs font-black text-blue-600">{Math.round((activeStep + 1) / steps.length * 100)}%</div>
                                     </div>
                                     <div className="w-full h-3 bg-slate-100 rounded-full overflow-hidden">
@@ -429,19 +520,19 @@
                                 </div>
                             </div>
 
-                            {/* Case-spesifikk innsikt */}
+                            {/* Strategisk Notat */}
                             <div className="bg-slate-900 rounded-[2.5rem] p-10 shadow-2xl border-b-8 border-blue-600">
-                                <h4 className="text-blue-400 font-black text-[10px] uppercase tracking-[0.3em] mb-4">💡 Svar på Case</h4>
+                                <h4 className="text-blue-400 font-black text-[10px] uppercase tracking-[0.3em] mb-4">💡 Strategisk svar til Adm.dir</h4>
                                 <div className="space-y-6">
                                     <div className="p-4 bg-slate-800 rounded-2xl border-l-4 border-blue-500">
                                         <p className="text-[11px] font-bold text-slate-300 leading-relaxed italic">
-                                            "Ved å bruke TOGAF ADM viser vi at moderniseringen ikke er tilfeldig, men en styrt transformasjon som lukker gappet fra underprioritert IT til en profesjonell virksomhetsarkitektur."
+                                            "Digitalisering er ikke et IT-prosjekt, men et løft for hele Røysumtunet. Ved å bygge en solid plan fjerner vi risiko, sparer tid i hverdagen og sikrer at styrets satsning gir varige resultater for både ansatte og pasienter."
                                         </p>
                                     </div>
                                     <div className="flex items-center gap-3">
-                                        <div className="w-10 h-10 bg-slate-700 rounded-full flex items-center justify-center text-xl">🤝</div>
-                                        <div className="text-[10px] font-bold text-slate-400">
-                                            Brobygger mellom strategisk ledelse (Adm.dir) og operasjonell IKT (Martin).
+                                        <div className="w-10 h-10 bg-slate-700 rounded-full flex items-center justify-center text-xl shadow-lg">🎯</div>
+                                        <div className="text-[10px] font-bold text-slate-400 leading-tight">
+                                            Fokus på forutsigbarhet, sikkerhet og en enklere arbeidshverdag.
                                         </div>
                                     </div>
                                 </div>
