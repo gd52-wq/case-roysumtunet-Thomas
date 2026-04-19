@@ -34,8 +34,8 @@
         const OnboardingApp = () => {
             const [activeStep, setActiveStep] = useState(0);
             const [auditTrail, setAuditTrail] = useState([]);
-            const [employeeName, setEmployeeName] = useState("Kandidat Nordmann"); 
-            const [viewMode, setViewMode] = useState("mapping"); // 'mapping', 'business', 'technical'
+            const [employeeName, setEmployeeName] = useState("Roar Røysum"); 
+            const [viewMode, setViewMode] = useState("mapping"); 
 
             const steps = [
                 {
@@ -43,17 +43,19 @@
                     icon: "🏢",
                     systems: "Visma HRM / M365 Forms",
                     mapping: {
-                        current: "Ledere sender ustrukturerte e-poster til HR/IKT. Viktig info mangler ofte.",
+                        before: "Ledere sender e-post med mangelfull info. HR puncher data manuelt inn i Visma.",
+                        after: "Strukturert inntak via Forms trigger automatisk flyt til Visma og IKT.",
+                        current: "Ustrukturerte bestillinger fører til feil i navn, datoer og tilganger.",
                         involvement: "HR-ansvarlig, Avdelingsledere, Martin (IKT).",
-                        goal: "Etablere 'Single Source of Truth' i Visma før IKT-prosessen starter.",
+                        goal: "Etablere 'Single Source of Truth' i Visma uten manuelle mellomledd.",
                         dialogue: [
                             { role: "IKT-Sjef", text: "Hvor kommer informasjonen om de nye ansatte fra i dag?" },
-                            { role: "HR", text: "Vi får som regel en e-post fra lederen, men ofte mangler både personnummer og riktig startdato." }
+                            { role: "HR", text: "Vi får som regel en e-post, men ofte mangler personnummer og nøyaktig startdato." }
                         ]
                     },
                     business: {
                         desc: `HR ansetter ${employeeName} i Visma. Data flyter automatisk til alle ledd.`,
-                        automation: "Fjerner manuell punching og ventetid på e-post-svar."
+                        automation: "Fjerner manuell punching og eliminerer ventetid på e-post."
                     },
                     tech: {
                         concept: "Fra e-post til strukturert data",
@@ -66,25 +68,27 @@
                 {
                     title: "Digital Kontrakt",
                     icon: "✍️",
-                    systems: "BankID / Panda 360",
+                    systems: "BankID / PowerOffice",
                     mapping: {
-                        current: "Papirkontrakter eller PDF-er som scannes og sendes manuelt til arkiv.",
+                        before: "Papirkontrakter eller PDF-er scannes og lagres manuelt i mapper.",
+                        after: "Digital signering ruter ferdig dokument direkte til personalarkiv.",
+                        current: "Tidkrevende oppfølging av signaturer og risiko for manglende arkivering.",
                         involvement: "HR, Ansatt, Arkivansvarlig.",
-                        goal: "100% digital signering med automatisk arkivering for compliance.",
+                        goal: "100% digital signering med automatisk arkivering for full compliance.",
                         dialogue: [
-                            { role: "IKT-Sjef", text: "Hvordan vet vi med sikkerhet at kontrakten er signert før vi gir tilgang til Extensor?" },
-                            { role: "HR", text: "I dag må vi sjekke e-posten manuelt eller vente på at noen ringer oss for å bekrefte." }
+                            { role: "IKT-Sjef", text: "Hvordan vet vi med sikkerhet at kontrakten er arkivert før oppstart?" },
+                            { role: "HR", text: "I dag må vi sjekke personalmapper manuelt for å verifisere at alt er på plass." }
                         ]
                     },
                     business: {
-                        desc: `${employeeName} signerer digitalt. Kontrakten lander automatisk i personalmappa.`,
-                        automation: "Eliminerer scanning, printing og risiko for dokumenter på avveie."
+                        desc: `${employeeName} signerer digitalt. Kontrakten lander automatisk i PowerOffice.`,
+                        automation: "Eliminerer scanning og manuell ruting av dokumenter."
                     },
                     tech: {
                         concept: "Sikker dokumentflyt",
                         nodes: [
                             { tool: "BankID", action: "Autentisering", icon: "🔐", color: "bg-orange-50 border-orange-200" },
-                            { tool: "Panda 360 API", action: "Auto-arkiv", icon: "📁", color: "bg-emerald-50 border-emerald-200" }
+                            { tool: "PowerOffice API", action: "Auto-arkiv", icon: "📁", color: "bg-emerald-50 border-emerald-200" }
                         ]
                     }
                 },
@@ -93,17 +97,19 @@
                     icon: "🔑",
                     systems: "AD / Entra ID",
                     mapping: {
-                        current: "Martin oppretter brukere manuelt basert på e-post. Fare for skrivefeil.",
+                        before: "Martin oppretter kontoer manuelt basert på e-post-bestilling.",
+                        after: "Systemet leser stillingskode og oppretter tilganger automatisk (RBAC).",
+                        current: "Brukerfeil ved punching og 'copy-paste' av gamle brukere gir feil tilgang.",
                         involvement: "IKT-tekniker (Martin), Fagledere.",
-                        goal: "Rollebasert tilgang (RBAC) trigget av stillingstittel i Visma.",
+                        goal: "Sikre 'least privilege' og fjerne personavhengighet i IKT-drift.",
                         dialogue: [
-                            { role: "IKT-Sjef", text: "Martin, hvor mye tid bruker du på å opprette brukere manuelt i løpet av en uke?" },
-                            { role: "Martin", text: "Alt for mye. Og ofte får jeg feil navn eller feil avdeling fra lederne, så jeg må gjøre det på nytt." }
+                            { role: "IKT-Sjef", text: "Martin, hvor mye tid bruker du på å rette opp feil i AD-kontoer?" },
+                            { role: "Martin", text: "Hver uke må jeg endre navn eller grupper fordi infoen jeg fikk var utdatert." }
                         ]
                     },
                     business: {
                         desc: `Brukerkonto for ${employeeName} er klar med riktige tilganger fra dag én.`,
-                        automation: "Konto opprettes av systemet, ikke av et menneske."
+                        automation: "Konto opprettes av systemet basert på rolle, ikke av Martin manuelt."
                     },
                     tech: {
                         concept: "Automatisert Identitet (IAM)",
@@ -118,22 +124,24 @@
                     icon: "🛡️",
                     systems: "M365 / SSO / MFA",
                     mapping: {
-                        current: "Ansatte har mange passord. MFA er kanskje ikke konsekvent gjennomført.",
-                        involvement: "IKT-sikkerhetsansvarlig, Alle ansatte.",
-                        goal: "Single Sign-On (SSO) for å redusere passord-friksjon og øke sikkerhet.",
+                        before: "Brukerne logger på ulike systemer med ulike passord.",
+                        after: "Single Sign-On (SSO) sikret med én pålogging og MFA.",
+                        current: "Gule lapper og 'passord-tretthet' utgjør en sikkerhetsrisiko.",
+                        involvement: "IKT-sikkerhet, Superbrukere.",
+                        goal: "Fjerne friksjon for pleierne og styrke sikkerheten med MFA.",
                         dialogue: [
-                            { role: "IKT-Sjef", text: "Hvordan håndterer vi MFA for de som jobber ute på avdelingene?" },
-                            { role: "Tekniker", text: "Det er varierende. Noen sliter med påloggingen, og vi får mange support-henvendelser på passord." }
+                            { role: "IKT-Sjef", text: "Hvor mange passord må en pleier huske i løpet av en vakt?" },
+                            { role: "Leder", text: "Alt for mange. Det ender ofte med at de skriver dem ned." }
                         ]
                     },
                     business: {
                         desc: `${employeeName} logger på alt med én bruker. Sikret med MFA.`,
-                        automation: "Dynamisk lisensiering sparer kostnader ved endringer i stab."
+                        automation: "Automatisk tildeling av lisenser sparer tid og penger."
                     },
                     tech: {
                         concept: "Modern Workplace",
                         nodes: [
-                            { tool: "Conditional Access", action: "MFA-krav", icon: "📱", color: "bg-red-50 border-red-200" },
+                            { tool: "Conditional Access", action: "Sikrer MFA", icon: "📱", color: "bg-red-50 border-red-200" },
                             { tool: "SAML / SSO", action: "Fagsystem-link", icon: "🔑", color: "bg-blue-50 border-blue-200" }
                         ]
                     }
@@ -143,17 +151,19 @@
                     icon: "💻",
                     systems: "Intune / Autopilot",
                     mapping: {
-                        current: "IKT bruker timer på å installere hver enkelt PC manuelt ('ghosting').",
-                        involvement: "Martin (IKT), Maskinvareleverandør.",
-                        goal: "Zero-Touch utrulling hvor PC-en setter seg opp selv.",
+                        before: "IKT installerer hver PC manuelt før utlevering.",
+                        after: "Zero-Touch: PC klargjøres automatisk når bruker logger på.",
+                        current: "Kø hos IKT ved store utskiftninger og lang ventetid på utstyr.",
+                        involvement: "Martin (IKT), Leverandør.",
+                        goal: "Effektiv logistikk og standardisert oppsett (BitLocker/Kryptering).",
                         dialogue: [
-                            { role: "IKT-Sjef", text: "Må alle PC-er innom kontoret ditt før de sendes ut til avdelingene?" },
-                            { role: "Martin", text: "Ja, jeg bruker minst to timer på å installere apper og oppdatere hver eneste maskin." }
+                            { role: "IKT-Sjef", text: "Hva skjer når vi får 20 nye maskiner samtidig?" },
+                            { role: "Martin", text: "Da blir jeg sittende i dagevis bare for å installere Windows og apper." }
                         ]
                     },
                     business: {
-                        desc: `${employeeName} pakker ut PC-en, logger på, og alt fungerer umiddelbart.`,
-                        automation: "Frigjør Martin til mer verdiskapende oppgaver enn installasjon."
+                        desc: `${employeeName} logger på ny maskin. Alt installeres automatisk.`,
+                        automation: "Frigjør IKT-ressurser fra 'samlebåndsarbeid' til brukerstøtte."
                     },
                     tech: {
                         concept: "Zero-Touch Deployment",
@@ -168,22 +178,24 @@
                     icon: "🚀",
                     systems: "Audit / Power BI",
                     mapping: {
-                        current: "Tidkrevende manuelt arbeid å finne dokumentasjon ved tilsyn.",
-                        involvement: "Administrerende Direktør, Kvalitetsleder.",
-                        goal: "Live dashboard som beviser compliance 24/7.",
+                        before: "Manuell leting i mapper og systemer ved tilsyn.",
+                        after: "Live Dashboard viser compliance-status i sanntid.",
+                        current: "Ledelsen har ikke oversikt over hvem som har fullført lovpålagte kurs.",
+                        involvement: "Adm. Dir (Kine), Kvalitetsleder.",
+                        goal: "Bevege oss fra 'reaktiv' til 'proaktiv' internkontroll (PDCA).",
                         dialogue: [
-                            { role: "Direktør", text: "Kan vi bevise for Helsetilsynet at alle har fått riktig opplæring og tilgang?" },
-                            { role: "Kvalitetsleder", text: "Det tar oss flere dager å samle bevis fra Excel-ark og forskjellige mapper." }
+                            { role: "Direktør", text: "Hvor lang tid tar det å få ut en liste over alle med tilgang til pasientdata?" },
+                            { role: "Kvalitetsleder", text: "I dag må vi koble sammen data fra tre ulike systemer manuelt." }
                         ]
                     },
                     business: {
-                        desc: "Ledelsen har full oversikt over at alle rutiner følges.",
-                        automation: "Revisjonsrapport genereres automatisk, ikke manuelt før tilsyn."
+                        desc: "Kine har full oversikt over compliance via et levende dashboard.",
+                        automation: "Rapportering skjer automatisk, ikke som skippertak før tilsyn."
                     },
                     tech: {
                         concept: "Compliance Dashboard",
                         nodes: [
-                            { tool: "Log Analytics", action: "Datasanking", icon: "🔍", color: "bg-slate-50 border-slate-200" },
+                            { tool: "Log Analytics", action: "Sanking", icon: "🔍", color: "bg-slate-50 border-slate-200" },
                             { tool: "Power BI", action: "Ledelsesinfo", icon: "📊", color: "bg-yellow-50 border-yellow-200" }
                         ]
                     }
@@ -192,9 +204,9 @@
 
             useEffect(() => {
                 const logs = [
-                    `[KARTLEGGING] Involverer interessenter for ${steps[activeStep].title}.`,
-                    `[AUDIT] Verifiserer dagens manuelle smertepunkter.`,
-                    `[COMPLIANCE] Måler modenhet mot målbilde (PDCA).`
+                    `[KARTLEGGING] Analyserer dagens flyt for ${steps[activeStep].title}.`,
+                    `[AUDIT] Verifiserer smertepunkter: "${steps[activeStep].mapping.current}"`,
+                    `[COMPLIANCE] Definerer målbilde for automatisert etterlevelse.`
                 ];
                 setAuditTrail(prev => [logs[activeStep % 3], ...prev].slice(0, 10));
             }, [activeStep]);
@@ -206,10 +218,10 @@
                     <header className="flex flex-col md:flex-row md:justify-between md:items-center mb-6">
                         <div>
                             <h1 className="text-2xl md:text-3xl font-black text-slate-900 flex items-center">
-                                <span className="text-blue-600 mr-2 uppercase">Røysumtunet</span> 
+                                <span className="text-blue-600 mr-2 uppercase">RØYSUMTUNET</span> 
                                 <span className="text-slate-400 font-light">| Compliance-reise</span>
                             </h1>
-                            <p className="text-slate-500 text-sm font-bold uppercase tracking-widest">Kartlegging ➔ Prosess ➔ Arkitektur</p>
+                            <p className="text-slate-500 text-sm font-bold uppercase tracking-widest">Brukerinvolvering ➔ Prosess ➔ Arkitektur</p>
                         </div>
                         <div className="flex bg-white p-1 rounded-xl shadow-sm border border-slate-200 mt-4 md:mt-0">
                             {[
@@ -229,11 +241,11 @@
                     </header>
 
                     <div className="flex-1 grid grid-cols-1 lg:grid-cols-12 gap-6">
-                        {/* Venstre side: Prosesslinje og Hovedinnhold */}
-                        <div className="lg:col-span-8 flex flex-col space-y-6">
+                        {/* Venstre side */}
+                        <div className="lg:col-span-8 flex flex-col space-y-6 overflow-y-auto hide-scrollbar pr-1">
                             
                             {/* Steg-velger */}
-                            <div className="bg-white rounded-3xl p-6 shadow-sm border border-slate-200 overflow-x-auto hide-scrollbar">
+                            <div className="bg-white rounded-3xl p-6 shadow-sm border border-slate-200 overflow-x-auto hide-scrollbar shrink-0">
                                 <div className="min-w-[700px] relative">
                                     <div className="absolute top-1/2 left-10 right-10 h-1 bg-slate-100 -translate-y-1/2 rounded-full"></div>
                                     <motion.div 
@@ -262,20 +274,31 @@
                                         className="bg-white rounded-[2rem] p-8 shadow-md border-2 border-blue-100 flex-1 flex flex-col"
                                     >
                                         <div className="mb-6">
-                                            <span className="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest">Fase 1: Brukerinvolvering & Kartlegging</span>
-                                            <h2 className="text-3xl font-black text-slate-900 mt-2">Kartlegging av {steps[activeStep].title}</h2>
+                                            <span className="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest tracking-tighter">Steg {activeStep + 1}: Brukerinvolvering & Kartlegging</span>
+                                            <h2 className="text-3xl font-black text-slate-900 mt-2">{steps[activeStep].title}</h2>
+                                        </div>
+
+                                        {/* STEG-SPESIFIKK SAMMENLIGNING */}
+                                        <div className="mb-8 grid grid-cols-2 gap-4">
+                                            <div className="bg-slate-50 p-5 rounded-2xl border border-slate-200">
+                                                <h3 className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">I dag (Manuelt)</h3>
+                                                <p className="text-sm font-bold text-slate-700 leading-relaxed">{steps[activeStep].mapping.before}</p>
+                                            </div>
+                                            <div className="bg-blue-50 p-5 rounded-2xl border-2 border-blue-200">
+                                                <h3 className="text-[10px] font-black text-blue-500 uppercase tracking-widest mb-2">Målbilde (Automatisert)</h3>
+                                                <p className="text-sm font-black text-blue-900 leading-relaxed italic">{steps[activeStep].mapping.after}</p>
+                                            </div>
                                         </div>
                                         
                                         <div className="grid md:grid-cols-2 gap-8 flex-1">
                                             <div className="space-y-6">
-                                                <div className="bg-slate-50 p-5 rounded-2xl border-l-4 border-slate-300">
-                                                    <h3 className="text-xs font-black text-slate-400 uppercase mb-2">Dagens situasjon (Smertepunkter)</h3>
+                                                <div className="bg-slate-50 p-5 rounded-2xl border-l-4 border-slate-300 shadow-sm">
+                                                    <h3 className="text-[10px] font-black text-slate-400 uppercase mb-2 tracking-widest">Smertepunkt identifisert</h3>
                                                     <p className="text-slate-700 font-bold leading-relaxed">{steps[activeStep].mapping.current}</p>
                                                 </div>
                                                 
-                                                {/* SIMULERT DIALOG */}
-                                                <div className="bg-white p-6 rounded-3xl border-2 border-dashed border-slate-200">
-                                                    <h3 className="text-[10px] font-black text-slate-400 uppercase mb-4 tracking-widest">Intervjuer med interessenter</h3>
+                                                <div className="bg-white p-6 rounded-3xl border-2 border-dashed border-slate-200 shadow-sm">
+                                                    <h3 className="text-[10px] font-black text-slate-400 uppercase mb-4 tracking-widest">Dialog fra kartlegging</h3>
                                                     <div className="space-y-4">
                                                         {steps[activeStep].mapping.dialogue.map((msg, mi) => (
                                                             <div key={mi} className={`flex flex-col ${msg.role === 'IKT-Sjef' ? 'items-start' : 'items-end'}`}>
@@ -289,25 +312,25 @@
                                                 </div>
                                             </div>
                                             
-                                            <div className="bg-slate-50 p-6 rounded-2xl border border-slate-200 flex flex-col h-full">
+                                            <div className="bg-slate-50 p-6 rounded-2xl border border-slate-200 flex flex-col h-full shadow-sm">
                                                 <div className="mb-6">
-                                                    <h3 className="text-xs font-black text-slate-400 uppercase mb-4">Hvem involverer vi?</h3>
+                                                    <h3 className="text-[10px] font-black text-slate-400 uppercase mb-4 tracking-widest">Hvem har vi involvert?</h3>
                                                     <div className="flex flex-wrap gap-2">
                                                         {steps[activeStep].mapping.involvement.split(', ').map((person, pi) => (
                                                             <span key={pi} className="bg-white px-4 py-2 rounded-xl shadow-sm text-[11px] font-black text-slate-600 border border-slate-100 flex items-center">
-                                                                <span className="mr-2 text-base">👤</span> {person}
+                                                                👤 {person}
                                                             </span>
                                                         ))}
                                                     </div>
                                                 </div>
                                                 
                                                 <div className="bg-blue-50 p-5 rounded-2xl border-l-4 border-blue-400 mb-6">
-                                                    <h3 className="text-xs font-black text-blue-400 uppercase mb-2">Mål for prosessen (Compliance)</h3>
+                                                    <h3 className="text-[10px] font-black text-blue-400 uppercase mb-2 tracking-widest">Gevinst-mål (Compliance)</h3>
                                                     <p className="text-blue-900 font-bold leading-relaxed">{steps[activeStep].mapping.goal}</p>
                                                 </div>
 
                                                 <div className="mt-auto">
-                                                    <button onClick={() => setViewMode('business')} className="w-full bg-blue-600 text-white py-4 rounded-xl font-black text-xs uppercase tracking-widest hover:bg-blue-700 shadow-lg transition-all">
+                                                    <button onClick={() => setViewMode('business')} className="w-full bg-blue-600 text-white py-4 rounded-xl font-black text-xs uppercase tracking-widest hover:bg-blue-700 shadow-lg transition-all active:scale-95">
                                                         Se løsningsforslag →
                                                     </button>
                                                 </div>
@@ -331,20 +354,20 @@
                                                 <p className="text-xl text-slate-700 font-medium leading-relaxed mb-6 italic border-l-4 border-emerald-500 pl-6">
                                                     "{steps[activeStep].business.desc}"
                                                 </p>
-                                                <div className="flex items-center text-emerald-600 bg-emerald-50 p-4 rounded-2xl font-black text-sm">
+                                                <div className="flex items-center text-emerald-600 bg-emerald-50 p-4 rounded-2xl font-black text-sm border border-emerald-200">
                                                     <span className="text-2xl mr-3">⚡</span> {steps[activeStep].business.automation}
                                                 </div>
                                             </div>
-                                            <div className="bg-slate-50 rounded-3xl flex flex-col items-center justify-center p-12 text-9xl shadow-inner relative">
-                                                <div className="absolute top-4 right-6 text-[10px] font-black text-slate-300 uppercase tracking-widest">Status: Implementert</div>
+                                            <div className="bg-slate-50 rounded-3xl flex flex-col items-center justify-center p-12 text-9xl shadow-inner relative border border-slate-200">
+                                                <div className="absolute top-4 right-6 text-[10px] font-black text-slate-300 uppercase tracking-widest">Implementert</div>
                                                 {steps[activeStep].icon}
                                                 <span className="text-xs font-black text-slate-400 uppercase mt-8 tracking-widest">{steps[activeStep].systems}</span>
                                             </div>
                                         </div>
                                         <div className="mt-8 flex space-x-4">
                                             <button onClick={() => setViewMode('mapping')} className="px-6 py-4 rounded-xl font-black text-xs uppercase text-slate-400 hover:text-slate-600 transition-all">← Tilbake til kartlegging</button>
-                                            <button onClick={() => setViewMode('technical')} className="flex-1 bg-slate-900 text-white py-4 rounded-xl font-black text-xs uppercase tracking-widest hover:bg-slate-800 shadow-lg transition-all flex items-center justify-center">
-                                                ⚙️ Se teknisk rørgate (for IKT)
+                                            <button onClick={() => setViewMode('technical')} className="flex-1 bg-slate-900 text-white py-4 rounded-xl font-black text-xs uppercase tracking-widest hover:bg-slate-800 shadow-lg transition-all flex items-center justify-center active:scale-95">
+                                                ⚙️ Se teknisk arkitektur (for IKT)
                                             </button>
                                         </div>
                                     </motion.div>
@@ -383,9 +406,9 @@
                                                         setViewMode('mapping');
                                                     }
                                                 }}
-                                                className="bg-blue-600 text-white px-8 py-3 rounded-xl font-black text-xs uppercase tracking-widest hover:bg-blue-500 shadow-lg"
+                                                className="bg-blue-600 text-white px-8 py-3 rounded-xl font-black text-xs uppercase tracking-widest hover:bg-blue-500 shadow-lg active:scale-95 transition-all"
                                             >
-                                                Neste vurdering: {activeStep < steps.length - 1 ? steps[activeStep + 1].title : 'Ferdig'} →
+                                                Neste vurdering: {activeStep < steps.length - 1 ? steps[activeStep + 1].title : 'Fullført'} →
                                             </button>
                                         </div>
                                     </motion.div>
@@ -393,7 +416,7 @@
                             </AnimatePresence>
                         </div>
 
-                        {/* Høyre side: Audit Log / Strategi */}
+                        {/* Høyre side */}
                         <div className="lg:col-span-4 flex flex-col space-y-6">
                             <div className="bg-white rounded-3xl p-6 shadow-sm border border-slate-200 flex-1 flex flex-col h-[400px]">
                                 <h3 className="text-xs font-black text-slate-800 uppercase tracking-widest mb-4 flex justify-between items-center border-b pb-3">
@@ -411,16 +434,16 @@
                                 </div>
                                 <div className="mt-4 pt-4 border-t text-center">
                                     <div className="text-[10px] font-black text-slate-400 uppercase mb-2">Prosess-Modenhet</div>
-                                    <div className="w-full h-2 bg-slate-100 rounded-full overflow-hidden">
-                                        <motion.div className="h-full bg-blue-600" animate={{ width: `${(activeStep + 1) / steps.length * 100}%` }}></motion.div>
+                                    <div className="w-full h-2 bg-slate-100 rounded-full overflow-hidden shadow-inner">
+                                        <motion.div className="h-full bg-blue-600" animate={{ width: `${((activeStep + 1) / steps.length) * 100}%` }}></motion.div>
                                     </div>
                                 </div>
                             </div>
 
                             <div className="bg-slate-800 rounded-3xl p-6 shadow-xl border-b-8 border-blue-600">
-                                <h4 className="text-blue-400 font-black text-[10px] uppercase mb-2">💡 Min Tilnærming</h4>
+                                <h4 className="text-blue-400 font-black text-[10px] uppercase mb-2 tracking-widest">💡 Min Tilnærming</h4>
                                 <p className="text-xs font-semibold text-slate-300 leading-relaxed italic">
-                                    "Teknologi alene løser ingenting. Ved å involvere brukerne tidlig og kartlegge dagens manuelle 'branner', kan vi bygge automatiserte løsninger som faktisk gir verdi og eierskap på tvers av avdelingene."
+                                    "Teknologi alene løser ingenting. Ved å kartlegge dagens manuelle smertepunkt for hvert steg, bygger vi løsninger som de ansatte faktisk ser verdien av fra dag én."
                                 </p>
                             </div>
                         </div>
